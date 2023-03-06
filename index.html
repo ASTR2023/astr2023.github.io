@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="LoFTR can extract high-quality semi-dense matches even in indistinctive regions with low-textures, motion blur, or repetitive patterns. Accepted in CVPR 2021."/>
+    <title>ASTR: Adaptive Spot-Guided Transformer for Consistent Local Feature Matching</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+    <style>
+      body {
+        background: no-repeat fixed top left;
+        font-family:'Open Sans', sans-serif;
+      }
+    </style>
+    <script>
+    MathJax = {
+      tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    };
+    </script>
+
+</head>
+
+<body>
+
+<!-- cover -->
+<section>
+    <div class="jumbotron text-center mt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>ASTR: Adaptive Spot-Guided Transformer for Consistent Local Feature Matching</h2>
+                    <h4 style="color:#6e6e6e;"> CVPR 2023 </h4>
+                    <hr>
+                    <h6><a href="https://monsoon-cs.moe" target="_blank">Jiahuan Yu</a><sup>1*</sup>,
+                        <a href="#" target="_blank">Jiahao Chang</a><sup>1*</sup>,
+                        <a href="#" target="_blank">Jianfeng He</a><sup>1</sup>,
+                        <a href="http://staff.ustc.edu.cn/~tzzhang/" target="_blank">Tianzhu Zhang</a><sup>1</sup>,
+                        <a href="#" target="_blank">Jiyang Yu</a><sup>2</sup>,
+                        <a href="https://www.ustc.edu.cn/info/1007/6927.htm" target="_blank">Feng Wu</a><sup>1</sup>
+                    </h6>
+                    <p><sup>1</sup>University of Science and Technology of China
+                        <br>
+                        <sup>*</sup> denotes equal contribution
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="column">
+                            <p class="mb-5"><a class="btn btn-large btn-light disabled"
+                                               href="#" role="button"
+                                               target="_blank">
+                                <i class="fa fa-file"></i> Paper (Coming Soon)</a></p>
+                        </div>
+                        <div class="column">
+                            <p class="mb-5"><a class="btn btn-large btn-light disabled" href="#"
+                                               role="button" target="_blank">
+                                <i class="fa fa-file"></i> Supplementary (Coming Soon)</a></p>
+                        </div>
+                        <div class="column">
+                            <p class="mb-5"><a class="btn btn-large btn-light disabled" id="code_soon"
+                                               href="https://github.com/ASTR2023/ASTR" role="button"
+                                               target="_blank">
+                                <i class="fa fa-github-alt"></i> Code (Coming Soon) </a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- abstract -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Abstract</h3>
+                <hr style="margin-top:0px">
+                <h6 style="color:#8899a5" class="text-center">
+                    TL;DR: ASTR proposes a novel attention mechanism (spot-guided attention) to maintain the local
+                    consistency of feature matching, while dealing with large scale variations by calculating depth
+                    information.
+                </h6>
+                <h5 style="color:green">Thanks to <a href="https://zju3dv.github.io/loftr/" target="_blank">LoFTR</a>
+                    for their great work and well-organized code.</h5>
+                <br>
+                <img id="heatmap" width="100%" src="images/astr_heatmap.png"/>
+                <div><b style="color:#fd5638; font-size:large" id="demo-warning"></b>
+                    <br>
+                    <p class="text-justify">
+                        Local feature matching aims at finding correspondences between a pair of images. Although
+                        current detector-free methods leverage Transformer architecture to obtain an impressive
+                        performance, few works consider maintaining local consistency. Meanwhile, most methods struggle
+                        with large scale variations. To deal with the above issues, we propose Adaptive Spot-Guided
+                        Transformer (ASTR) for local feature matching, which jointly models the local consistency and
+                        scale variations in a unified coarse-to-fine architecture. The proposed ASTR enjoys several
+                        merits. First, we design a spot-guided aggregation module to avoid interfering with irrelevant
+                        areas during feature aggregation. Second, we design an adaptive scaling module to adjust the
+                        size of grids according to the calculated depth information at fine stage. Extensive
+                        experimental results on five standard benchmarks demonstrate that our ASTR performs favorably
+                        against state-of-the-art methods.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+
+<!-- pipeline -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Pipeline Overview</h3>
+                <hr style="margin-top:0px">
+                <!--                <img class="img-fluid" src="images/astr_arch_1.png" alt="ASTR Architecture Overall">-->
+                <!--                <br>-->
+                <!--                <img class="img-fluid" width="45%" src="images/astr_arch_2.png" alt="Spot-Guided Attention">-->
+                <!--                <img class="img-fluid" width="45%" src="images/astr_arch_3.png">-->
+                <img class="img-fluid" src="images/astr_arch_all.png"></image>
+                <p class="text-justify">
+                </p>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- performance -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Performance</h3>
+                <hr style="margin-top:0px">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <img width="100%" src="images/astr_hpatches.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <img width="100%" src="images/astr_megadepth.png">
+            </div>
+            <div class="col-6">
+                <img width="100%" src="images/astr_scannet.png">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <img width="100%" src="images/astr_inloc.png">
+            </div>
+            <div class="col-6">
+                <img width="100%" src="images/astr_aachen.png">
+            </div>
+        </div>
+    </div>
+</section>
+
+<br>
+
+<!-- visualizations -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h3>Visualizations</h3>
+                <hr style="margin-top:0px">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <img width="100%" src="images/astr_vis_1.png">
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-end">
+            <div class="col-6">
+                <img width="100%" src="images/astr_vis_2.png">
+            </div>
+            <div class="col-6">
+                <img width="100%" src="images/astr_vis_3.png">
+            </div>
+        </div>
+    </div>
+</section>
+<br>
+
+<!-- citing -->
+<div class="container">
+    <div class="row ">
+        <div class="col-12">
+            <h3>Citation</h3>
+            <hr style="margin-top:0px">
+            <pre style="background-color: #e9eeef;padding: 1.25em 1.5em">
+<code>@article{yuandchang2023astr,
+  title={{ASTR}: Adaptive Spot-Guided Transformer for Consistent Local Feature Matching},
+  author={Yu, Jiahuan and Chang, Jiahao and He, Jianfeng and Zhang, Tianzhu and Yu, Jiyang and Wu Feng},
+  journal={CVPR},
+  year={2021}
+}</code>
+            </pre>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center" style="margin-bottom:10px; font-size: medium;">
+    <hr>
+    Thanks to <a href="https://lioryariv.github.io/" target="_blank">Lior Yariv</a> for the <a
+        href="https://lioryariv.github.io/idr/" target="_blank">website template</a>.
+</footer>
+
+</body>
+</html>
